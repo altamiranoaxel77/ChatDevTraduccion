@@ -211,6 +211,19 @@
       "As the {assistant_role}, to satisfy the new user's demand and make the software execute smoothly and robustly, you should modify the codes based on the error summary. Now, use the format exemplified above and modify the problematic codes based on the error summary. Output the codes that you fixed based on the test reported and corresponding explanations (strictly follow the format defined above, including FILENAME, LANGUAGE, DOCSTRING and CODE; incomplete \"TODO\" codes are strictly prohibited). If no bugs are reported, please return only one line like \"<INFO> Finished\"."
     ]
   },
+  "UnitTestAndModification": {
+    "assistant_role_name": "Programmer",
+    "user_role_name": "Software Test Engineer",
+    "phase_prompt": [
+      "Our developed source codes are listed below: ",
+      "Programming Language: \"{language}\"",
+      "Source Codes:",
+      "\"{codes}\"",
+      "As the {assistant_role}, to satisfy the new user's demand and make the software execute smoothly and robustly, you should perform unit testing to verify the correctness of each part of the code. Write unit tests in a separate file(s) following the standard conventions for unit testing in the chosen programming language.",
+      "Ensure that your tests cover a broad range of cases, including edge cases, to catch potential issues. Once the unit tests are complete, review the results and modify the source codes based on the test outcomes. If any issues are identified in the tests, address them by adjusting the source code accordingly.",
+      "Output the modified source codes after addressing the issues identified during the unit tests. Follow the standard conventions for code modifications in the chosen programming language and provide comments explaining the changes made based on the unit test results."
+    ]
+  },
   "EnvironmentDoc": {
     "assistant_role_name": "Programmer",
     "user_role_name": "Chief Technology Officer",

@@ -37,6 +37,12 @@
       "cycleNum": 3,
       "Composition": [
         {
+          "phase": "UnitTestAndModification",
+          "phaseType": "SimplePhase",
+          "max_turn_step": 1,
+          "need_reflect": "False"
+        },
+        {
           "phase": "CodeReviewComment",
           "phaseType": "SimplePhase",
           "max_turn_step": 1,

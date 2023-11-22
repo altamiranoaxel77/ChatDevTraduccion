@@ -603,7 +603,31 @@ class TestModification(Phase):
                 "**[Software Info]**:\n\n {}".format(get_info(chat_env.env_dict['directory'], self.log_filepath)))
         return chat_env
 
+class UnitTestAndModification(Phase):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
+    def update_phase_env(self, chat_env):
+        # Implementa la lógica específica para esta fase
+        # Puedes adaptar este método según las necesidades de tu fase
+        self.phase_env.update({"task": chat_env.env_dict['task_prompt'],
+                               "modality": chat_env.env_dict['modality'],
+                               "ideas": chat_env.env_dict['ideas'],
+                               "language": chat_env.env_dict['language'],
+                               "test_reports": chat_env.env_dict['test_reports'],
+                               "error_summary": chat_env.env_dict['error_summary'],
+                               "codes": chat_env.get_codes() # aca cambia por el metodo get_codes de chat_env
+                               })
+
+    def update_chat_env(self, chat_env) -> ChatEnv:
+        # Implementa la lógica específica para esta fase
+        # Puedes adaptar este método según las necesidades de tu fase
+        pass
+
+    def execute(self, chat_env, chat_turn_limit, need_reflect) -> ChatEnv:
+        # Implementa la lógica específica para esta fase
+        # Puedes adaptar este método según las necesidades de tu fase
+        pass
 class EnvironmentDoc(Phase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
