@@ -19,16 +19,18 @@ def check_bool(s):
 
 
 class ChatChain:
-
+    #Constructor de la clase ChatChain
+    # Recibe varios parámetros, entre ellos rutas de archivos de configuración, información del proyecto, y tipos de modelos.
+    # Lee configuraciones desde archivos JSON especificados en las rutas y realiza algunas inicializaciones.
     def __init__(self,
-                 config_path: str = None,
-                 config_phase_path: str = None,
-                 config_role_path: str = None,
-                 task_prompt: str = None,
-                 project_name: str = None,
-                 org_name: str = None,
-                 model_type: ModelType = ModelType.GPT_3_5_TURBO,
-                 code_path: str = None) -> None:
+                 config_path: str = None, #Define el metodo de inicializacion
+                 config_phase_path: str = None, #Ruta al archivo de configuración general. El valor predeterminado es None
+                 config_role_path: str = None, #Ruta al archivo de configuración de roles. El valor predeterminado es None.
+                 task_prompt: str = None, #Prompt de tarea, es decir, la entrada del usuario que describe la tarea. El valor predeterminado es None.
+                 project_name: str = None, #Nombre del proyecto. El valor predeterminado es None.
+                 org_name: str = None, # Nombre de la organización. El valor predeterminado es None.
+                 model_type: ModelType = ModelType.GPT_3_5_TURBO, #Tipo de modelo a utilizar. El valor predeterminado es ModelType.GPT_3_5_TURBO.
+                 code_path: str = None) -> None: #ruta al codigo del proyecto. el valor predeterminado es none. -> None indica que el metodo no devuelve ningun valor explicito (devuelve none)
         """
 
         Args:
@@ -41,24 +43,35 @@ class ChatChain:
         """
 
         # load config file
-        self.config_path = config_path
-        self.config_phase_path = config_phase_path
-        self.config_role_path = config_role_path
-        self.project_name = project_name
-        self.org_name = org_name
-        self.model_type = model_type
-        self.code_path = code_path
+        #Inicializacion de atributos
+        self.config_path = config_path #Asignacion de la ruta del archivo de configuracion general
+        self.config_phase_path = config_phase_path #Asignacion de la ruta del archivo de configuracion de fases
+        self.config_role_path = config_role_path #Asignacion de la ruta del archivo de configuracion de roles
+        self.project_name = project_name #Asignacion del nombre del proyecto
+        self.org_name = org_name #Asignacion del nombre del proyecto
+        self.model_type = model_type #Asignacion del tipo de modelo
+        self.code_path = code_path #Asignacion de la ruta del codigo
 
+        #Se asignan las rutas de los archivos de configuracion
         with open(self.config_path, 'r', encoding="utf8") as file:
             self.config = json.load(file)
+            #Se abre el archivo especificado en self.config_path en modo de lectura ('r') y
+            # se utiliza el manejador de contexto (with) para garantizar que el archivo se cierre correctamente después de su uso.
+            # El contenido del archivo se carga en el diccionario self.config utilizando json.load
         with open(self.config_phase_path, 'r', encoding="utf8") as file:
             self.config_phase = json.load(file)
+            #Similar al anterior, se abre y carga el archivo de configuración de fases en el diccionario self.config_phase.
         with open(self.config_role_path, 'r', encoding="utf8") as file:
             self.config_role = json.load(file)
+            #De manera análoga, se abre y carga el archivo de configuración de roles en el diccionario self.config_role
 
         # init chatchain config and recruitments
         self.chain = self.config["chain"]
+        # Se asigna a self.chain el valor asociado a la clave "chain" en el diccionario self.config.
+        # Este valor generalmente será una lista que contiene información sobre la cadena de tareas a ejecutar.
         self.recruitments = self.config["recruitments"]
+        # Similar al caso anterior, se asigna a self.recruitments el valor asociado a la clave "recruitments" en el diccionario self.config.
+        # Este valor probablemente será una lista que contiene información sobre los reclutamientos de agentes para el entorno del chat.
 
         # init default max chat turn
         self.chat_turn_limit_default = 10
