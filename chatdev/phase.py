@@ -605,12 +605,12 @@ class TestModification(Phase):
 
 class UnitTestAndModification(Phase):
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__(**kwargs) #kwargs indica puede aceptar cualquier número de argumentos clave (nombre-valor)
 
     def update_phase_env(self, chat_env):
         # Implementa la lógica específica para esta fase
         # Puedes adaptar este método según las necesidades de tu fase
-        self.phase_env.update({"task": chat_env.env_dict['task_prompt'],
+        self.phase_env.update({"task": chat_env.env_dict['task_prompt'], 
                                "modality": chat_env.env_dict['modality'],
                                "ideas": chat_env.env_dict['ideas'],
                                "language": chat_env.env_dict['language'],

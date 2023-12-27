@@ -7,14 +7,14 @@ import time
 from typing import Dict
 
 import openai
-import requests
+import requests # librería que facilita enormemente el trabajo con peticiones HTTP 
 
-from chatdev.codes import Codes
-from chatdev.documents import Documents
-from chatdev.roster import Roster
-from chatdev.utils import log_and_print_online
+from chatdev.codes import Codes #importa la clase Codes del archivo codes.py de chatdev
+from chatdev.documents import Documents #importa la clase Documents del archivo documents.py de chardev
+from chatdev.roster import Roster #importa la clase Roster del archivo roster.py de chatdev
+from chatdev.utils import log_and_print_online #importa el metodo log_and_print_online del archivo utils.py
 
-
+#ChatEnvConfig crea la configuracion de ChatEnv
 class ChatEnvConfig:
     def __init__(self, clear_structure,
                  gui_design,
@@ -35,16 +35,16 @@ class ChatEnvConfig:
 
 
 class ChatEnv:
-    def __init__(self, chat_env_config: ChatEnvConfig):
-        self.config = chat_env_config
+    def __init__(self, chat_env_config: ChatEnvConfig): # recibe un parámetro chat_env_config del tipo ChatEnvConfig
+        self.config = chat_env_config #almacena la configuracion de ChatEnv que es un objeto de tipo ChatEnvConfig
         self.roster: Roster = Roster()
         self.codes: Codes = Codes()
-        self.proposed_images: Dict[str, str] = {}
+        self.proposed_images: Dict[str, str] = {} #guardara imagenes key/value. La clave es una cadena (posiblemente un identificador único) y el valor es la ruta o información asociada a la imagen.
         self.incorporated_images: Dict[str, str] = {}
-        self.requirements: Documents = Documents()
-        self.manuals: Documents = Documents()
-        self.env_dict = {
-            "directory": "",
+        self.requirements: Documents = Documents() 
+        self.manuals: Documents = Documents() 
+        self.env_dict = { # diccionario que actua como contenedor para los diferentes aspectos del chat 
+            "directory": "", 
             "task_prompt": "",
             "modality": "",
             "ideas": "",
